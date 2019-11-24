@@ -1,0 +1,138 @@
+<div class="row animated bounceInRight">
+    <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Editar Solicitud</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label >Nombre de Persona</label>
+              <div class="input-group">
+                <input [value]= "solicitudToEdit.nombrePersona"  class="form-control text-info" >
+              </div>
+
+              <label >Fecha de Solicitud</label>
+              <div class="input-group">
+                <input [value]= "solicitudToEdit.fecha" type="text"  class="form-control text-info" >
+              </div>
+
+
+              <label >Descripción</label>
+              <div class="input-group">
+                <textarea [value]= "solicitudToEdit.descripcion" class="form-control text-info" name="" id="" cols="30" rows="10"></textarea>
+              </div>
+
+
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+        </div>
+      </ng-template>
+
+      <ng-template #create let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-create">Registrar Solicitud</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label >Nombre de Persona</label>
+                <div class="input-group">
+                  <input placeholder="Nombre"  class="form-control text-info" >
+                </div>
+  
+                
+  
+  
+                <label >Descripción</label>
+                <div class="input-group">
+                  <textarea [value]= "solicitudToEdit.descripcion" class="form-control text-info" name="" id="" cols="30" rows="10"></textarea>
+                </div>
+  
+  
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+          </div>
+        </ng-template>
+      
+      
+      
+      <hr>
+      
+  <div class="col-sm-12">
+    <div class="card demo-icons">
+      <div class="card-header">
+        <h5 class="card-title">Lista de Solicitudes Help Desk</h5>
+        
+          <div class="bg-light mb-3 pl-3">
+              <button (click)="getSolicitudByStatus('Asignada')" class="btn btn-sm btn-success">Ver Asignadas</button>
+              <button (click)="getSolicitudByStatus('Sin Asignar')" class="btn btn-sm btn-secondary">Ver Sin Asignar</button>
+
+              <div class="float-right">
+                  <button class="btn btn-sm btn-primary" (click)="open(create, 0)"><i class="fa fa-plus"></i></button>
+              </div>
+          </div>
+
+          
+
+        <div class="table-responsive">
+          <table class="table table-border">
+              <thead class="bg-success">
+                <tr>
+                  <th>Id Solicitud</th>
+                  <th>Nombre Persona</th>
+                  <th>Fecha</th>
+                  <th>Descripción</th>
+                  <th>Usuario</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+
+                </tr>
+              </thead>
+
+              <tbody>
+                  <tr *ngFor="let item of listSolicitudes">
+                    
+                    <td>{{item.idSolicitud}}</td>
+                    <td>{{item.nombrePersona}}</td>
+                    <td>{{item.fecha | date}}</td>
+                    <td>{{item.descripcion}}</td>
+                    <td>{{item.usuario.nombre}}</td>
+                    <td [class]="statusColor(item.estado)">{{item.estado}}</td>
+                    
+                    <td >
+                      <button (click)="deleteSolicitud(item.idSolicitud)" class="btn btn-sm btn-danger mr-2"><i class="fa fa-trash"></i></button>
+                      <!-- <button class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></button> -->
+                      <button class="btn btn-sm btn-primary mr-2" (click)="open(content, item.idSolicitud)"><i class="fa fa-pencil"></i></button>
+                      <button class="btn btn-sm btn-success" (click)="open(content, item.idSolicitud)"><i class="fa fa-user"></i></button>
+                      
+                    </td> 
+                    
+
+
+
+                    <!-- <td>Null</td> -->
+                  </tr>
+              </tbody>
+
+          </table>
+      </div>
+
+      </div>
+      <div class="card-body all-icons">
+        
+      </div>
+    </div>
+  </div>
+</div>
